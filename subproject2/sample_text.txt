@@ -1,0 +1,5 @@
+This is a sample text. This text contains some repeated words.
+The words in this text will be counted and analyzed.
+שלום זה טקסט לדוגמה בעברית. 
+זה טקסט שיש בו כמה מילים שחוזרות על עצמן.
+שלום שלום לכולם.

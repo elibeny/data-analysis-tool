@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --background-color: #f8f9fa;
+            --card-background: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 1rem;
+        }
+
+        .project-selection {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .project-option {
+            display: inline-block;
+            width: 200px;
+            margin: 1rem;
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .project-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-option i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .project-option h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-option p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        .table {
+            margin: 0;
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            max-width: 150px;
+            word-wrap: break-word;
+            white-space: normal;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        .table td {
+            max-width: 150px;
+            word-wrap: break-word;
+            white-space: normal;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+
+        .plot-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .plot-title {
+            color: #2C3E50;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498DB;
+        }
+
+        .collapsible {
+            background-color: #f8f9fa;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+            border-radius: 4px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .active, .collapsible:hover {
+            background-color: #e9ecef;
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .arrow {
+            border: solid #666;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            transition: 0.4s;
+        }
+
+        .active .arrow {
+            transform: rotate(-135deg);
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        .project-section {
+            display: none;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            color: var(--secondary-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            margin-top: auto;
+        }
+
+        .important-section {
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #f8fff8;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .important-section h3 {
+            color: #2E7D32;
+            font-size: 1.5em;
+            margin-top: 0;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        
+        .important-section .download-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .important-section .download-btn:hover {
+            background-color: #45a049;
+        }
+
+        .data-section {
+            margin: 10px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-section.averages {
+            background-color: #e3f2fd;
+        }
+
+        .data-section.posts {
+            background-color: #f1f8e9;
+        }
+
+        .collapsible {
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .collapsible.averages {
+            background-color: #bbdefb;
+        }
+
+        .collapsible.posts {
+            background-color: #dcedc8;
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: white;
+        }
+
+        .content.show {
+            max-height: 1000px;
+        }
+
+        .download-section {
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-download {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <!-- Project Selection -->
+        <div id="projectSelection" class="project-selection">
+            <h1 class="mb-4">Choose Your Project</h1>
+            <div class="project-options">
+                <div class="project-option" onclick="showProject('scaling')">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Data Scaling</h3>
+                    <p>Scale and analyze your data by group and post</p>
+                </div>
+                <div class="project-option" onclick="showProject('word_counter')">
+                    <i class="fas fa-font"></i>
+                    <h3>Word Counter</h3>
+                    <p>Analyze word frequencies in your text</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Scaling Section -->
+        <div id="scaling" class="project-section">
+            <a href="#" class="back-button" onclick="showProjectSelection()">
+                <i class="fas fa-arrow-left"></i> Back to Project Selection
+            </a>
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line me-2"></i>Data Scaling</h2>
+                </div>
+                <div class="card-body">
+                    <form id="scalingForm" enctype="multipart/form-data">
+                        <input type="hidden" name="project_type" value="scaling">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Upload your data file (Excel or CSV)</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".xlsx,.xls,.csv" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload me-2"></i>Process Data
+                        </button>
+                    </form>
+                    <div id="scalingResults" style="display: none;">
+                        <div class="alert alert-success mt-4">
+                            <span id="scalingSummary"></span>
+                        </div>
+                        <div id="dataFramePreviews">
+                            <div v-for="(info, name) in dataframes" :key="name">
+                                <div :class="['data-section', {'averages': name.includes('Averages'), 'posts': !name.includes('Averages')}]">
+                                    <button :class="['collapsible', {'averages': name.includes('Averages'), 'posts': !name.includes('Averages')}]" @click="toggleContent">
+                                        ${ name }
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                    <div class="content">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th v-for="col in info.columns" :key="col">${ col }</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr v-for="(row, index) in info.preview" :key="index">
+                                                        <td v-for="col in info.columns" :key="col">${ row[col] }</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="download-section">
+                                            <button class="btn-download" @click="downloadData(info.url, name + '.xlsx')">
+                                                <i class="fas fa-download"></i> Excel
+                                            </button>
+                                            <button class="btn-download" @click="downloadData(info.url, name + '.csv')">
+                                                <i class="fas fa-download"></i> CSV
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Plot section -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="plot-container">
+                                    <div class="plot-title">Group Averages (Original Scale -1 to 1)</div>
+                                    <div id="groupPlot"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="plot-container">
+                                    <div class="plot-title">Group Averages (Normalized by Mean)</div>
+                                    <div id="groupPlotNormalized"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="plot-container">
+                                    <div class="plot-title">Posts (Original Scale -1 to 1)</div>
+                                    <div id="postPlot"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="plot-container">
+                                    <div class="plot-title">Posts (Normalized by Mean)</div>
+                                    <div id="postPlotNormalized"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Word Counter Section -->
+        <div id="word_counter" class="project-section">
+            <a href="#" class="back-button" onclick="showProjectSelection()">
+                <i class="fas fa-arrow-left"></i> Back to Project Selection
+            </a>
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-font me-2"></i>Word Counter</h2>
+                </div>
+                <div class="card-body">
+                    <form id="wordCounterForm">
+                        <input type="hidden" name="project_type" value="word_counter">
+                        <div class="mb-3">
+                            <label for="text" class="form-label">Enter your text</label>
+                            <textarea class="form-control" id="text" name="text" rows="10" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-calculator me-2"></i>Count Words
+                        </button>
+                    </form>
+                    <div id="wordCounterResults" style="display: none;">
+                        <div class="mt-4">
+                            <h4>Results</h4>
+                            <div id="wordFrequencyStats"></div>
+                            <img id="wordFrequencyPlot" class="img-fluid mt-3" style="max-width: 100%;">
+                            <div class="table-responsive mt-3">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Word</th>
+                                            <th>Frequency</th>
+                                            <th>Percentage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="wordFrequencyTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Processing your data...</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Data Analysis Tool. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showProject(projectType) {
+            document.getElementById('projectSelection').style.display = 'none';
+            document.getElementById(projectType).style.display = 'block';
+        }
+
+        function showProjectSelection() {
+            document.querySelectorAll('.project-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById('projectSelection').style.display = 'block';
+            return false;  // Prevent default anchor behavior
+        }
+
+        const { createApp } = Vue;
+        
+        const app = createApp({
+            delimiters: ['${', '}'],  // Use different delimiters to avoid conflict with Jinja
+            data() {
+                return {
+                    dataframes: {}
+                }
+            },
+            methods: {
+                toggleContent(event) {
+                    const button = event.currentTarget;
+                    const content = button.nextElementSibling;
+                    content.classList.toggle('show');
+                    button.querySelector('i').classList.toggle('fa-rotate-180');
+                },
+                downloadData(url, filename) {
+                    fetch(url)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
+                        });
+                }
+            }
+        }).mount('#app');
+
+        // Make app global so we can access it from other functions
+        window.vueApp = app;
+
+        document.getElementById('scalingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            document.querySelector('.loading').style.display = 'flex';
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('scalingSummary').textContent = data.summary;
+                    
+                    window.vueApp.$data.dataframes = data.dataframes;  // Update Vue data
+                    
+                    // Create all 4 plots
+                    createPlot(data.group_plot, 'groupPlot', 'Group Averages (Original)');
+                    createPlot(data.group_plot_normalized, 'groupPlotNormalized', 'Group Averages (Normalized)');
+                    createPlot(data.post_plot, 'postPlot', 'Posts (Original)');
+                    createPlot(data.post_plot_normalized, 'postPlotNormalized', 'Posts (Normalized)');
+                    
+                    document.getElementById('scalingResults').style.display = 'block';
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request.');
+            } finally {
+                document.querySelector('.loading').style.display = 'none';
+            }
+        });
+
+        function handleWordCounter(e) {
+            e.preventDefault();
+            const text = document.getElementById('text').value;
+            if (!text.trim()) {
+                alert('Please enter some text to analyze');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('project_type', 'word_counter');
+            formData.append('text', text);
+
+            fetch('/analyze', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                if (!data.success) {
+                    throw new Error('Analysis failed');
+                }
+
+                // Update results
+                document.getElementById('wordCounterResults').style.display = 'block';
+                document.getElementById('wordFrequencyStats').innerHTML = data.summary;
+
+                // Update frequencies table
+                const tbody = document.getElementById('wordFrequencyTable');
+                tbody.innerHTML = '';
+                data.frequencies.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.word}</td>
+                        <td>${item.frequency}</td>
+                        <td>${item.percentage}%</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Update plot
+                const plotImg = document.getElementById('wordFrequencyPlot');
+                plotImg.src = data.plot_url + '?t=' + new Date().getTime(); // Add timestamp to prevent caching
+                plotImg.style.display = 'block';
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        }
+
+        document.getElementById('wordCounterForm').addEventListener('submit', handleWordCounter);
+
+        // Plot handling functions
+        function createPlot(data, plotId, title) {
+            const traces = data.map(trace => ({
+                x: trace.x,
+                y: trace.y,
+                mode: 'markers+text',
+                type: 'scatter',
+                name: trace.name,
+                text: trace.text,
+                hovertext: trace.hovertext,
+                hoverinfo: 'text',
+                textposition: 'top center',
+                marker: {
+                    size: 12,
+                    color: trace.color,
+                    opacity: 0.8,
+                    line: {
+                        color: 'white',
+                        width: 1
+                    }
+                }
+            }));
+
+            const layout = {
+                title: title,
+                showlegend: true,
+                xaxis: {
+                    title: 'Valence',
+                    range: [-2, 2],
+                    zeroline: true,
+                    zerolinecolor: '#969696',
+                    gridcolor: '#bdbdbd',
+                    gridwidth: 1
+                },
+                yaxis: {
+                    title: 'Arousal',
+                    range: [-2, 2],
+                    zeroline: true,
+                    zerolinecolor: '#969696',
+                    gridcolor: '#bdbdbd',
+                    gridwidth: 1
+                },
+                plot_bgcolor: 'white',
+                paper_bgcolor: 'white',
+                margin: { t: 50, b: 50, l: 50, r: 50 }
+            };
+
+            Plotly.newPlot(plotId, traces, layout);
+        }
+
+        function downloadPlotAsPNG(plotId) {
+            Plotly.downloadImage(plotId, {
+                format: 'png',
+                height: 800,
+                width: 1200,
+                filename: plotId
+            });
+        }
+
+        async function copyPlotToClipboard(plotId) {
+            try {
+                const plotElement = document.getElementById(plotId);
+                const canvas = await html2canvas(plotElement);
+                canvas.toBlob(async (blob) => {
+                    await navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': blob })
+                    ]);
+                    alert('Plot copied to clipboard!');
+                });
+            } catch (err) {
+                console.error('Failed to copy plot:', err);
+                alert('Failed to copy plot to clipboard');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var coll = document.getElementsByClassName("collapsible");
+            for (var i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
