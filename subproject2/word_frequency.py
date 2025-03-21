@@ -3,14 +3,14 @@ import pandas as pd
 import re
 from collections import Counter
 from pathlib import Path
+import matplotlib.pyplot as plt
+import os
 import sys
 from typing import Dict, List, Union
-import matplotlib.pyplot as plt
 import locale
 import io
 import codecs
 from difflib import SequenceMatcher
-import os
 
 # Set up console encoding for Windows
 if sys.platform == 'win32':
@@ -21,6 +21,8 @@ class WordFrequencyAnalyzer:
         self.df = None
         self.word_counts = None
         self.total_words = 0
+        # Set default output directory path, can be overridden
+        self.output_dir = 'output'
         # Common word variations to normalize
         self.word_variations = {
             'קאשבק': ['קאש בק', 'קש בק', 'קשבק', 'cashback', 'cash back'],
@@ -150,8 +152,26 @@ class WordFrequencyAnalyzer:
     def analyze_text(self, text: str) -> None:
         """Analyze the text and compute word frequencies."""
         try:
+            # Input validation
+            if not text or not isinstance(text, str):
+                raise ValueError("Input must be a non-empty string")
+            
+            # Handle empty text
+            if text.strip() == "":
+                self.word_counts = Counter()
+                self.total_words = 0
+                self.df = pd.DataFrame(columns=['word', 'frequency', 'percentage'])
+                return
+                
             # Split text into words
             words = re.findall(r'\b\w+\b', text.lower())
+            
+            # If no words found, create empty results
+            if not words:
+                self.word_counts = Counter()
+                self.total_words = 0
+                self.df = pd.DataFrame(columns=['word', 'frequency', 'percentage'])
+                return
             
             # Normalize word variations
             normalized_words = [self.normalize_word(word) for word in words]
@@ -162,6 +182,12 @@ class WordFrequencyAnalyzer:
             
             # Create DataFrame
             word_freq = [(word, int(count)) for word, count in self.word_counts.most_common()]  # Convert to int
+            
+            # If no words after processing, create empty DataFrame
+            if not word_freq:
+                self.df = pd.DataFrame(columns=['word', 'frequency', 'percentage'])
+                return
+                
             self.df = pd.DataFrame(word_freq, columns=['word', 'frequency'])
             
             # Calculate percentages
@@ -170,53 +196,95 @@ class WordFrequencyAnalyzer:
             # Convert frequency to standard Python int
             self.df['frequency'] = self.df['frequency'].astype(int)
             
-            # Combine similar words
-            self.combine_similar_words()
+            # Combine similar words only if we have words
+            if len(self.df) > 0:
+                self.combine_similar_words()
             
             # Sort by frequency
             self.df = self.df.sort_values('frequency', ascending=False).reset_index(drop=True)
             
         except Exception as e:
             print(f"Error in analyze_text: {str(e)}")
-            raise e
-
+            # Create empty results on error
+            self.word_counts = Counter()
+            self.total_words = 0
+            self.df = pd.DataFrame(columns=['word', 'frequency', 'percentage'])
+    
     def save_results(self) -> None:
         """Save analysis results to files."""
         try:
             # Ensure output directory exists
-            os.makedirs('output', exist_ok=True)
+            os.makedirs(self.output_dir, exist_ok=True)
+            
+            # Handle case where no data is available
+            if self.df is None or len(self.df) == 0:
+                # Create empty CSV
+                empty_df = pd.DataFrame(columns=['word', 'frequency', 'percentage'])
+                empty_df.to_csv(os.path.join(self.output_dir, 'word_frequencies.csv'), index=False, encoding='utf-8')
+                
+                # Create empty plot
+                plt.figure(figsize=(12, 6))
+                plt.title('No Words Found')
+                plt.xlabel('Words')
+                plt.ylabel('Frequency')
+                plt.text(0.5, 0.5, 'No words found in the provided text', 
+                         horizontalalignment='center', verticalalignment='center',
+                         transform=plt.gca().transAxes, fontsize=14)
+                plt.tight_layout()
+                plt.savefig(os.path.join(self.output_dir, 'word_frequencies_plot.png'), dpi=300, bbox_inches='tight')
+                plt.close()
+                return
             
             # Save CSV
-            self.df.to_csv('output/word_frequencies.csv', index=False, encoding='utf-8')
+            self.df.to_csv(os.path.join(self.output_dir, 'word_frequencies.csv'), index=False, encoding='utf-8')
             
             # Create plot
             plt.figure(figsize=(12, 6))
             
-            # Plot top 10 words
-            top_10 = self.df.head(10)
-            bars = plt.bar(top_10['word'], top_10['frequency'])
-            
-            # Customize plot
-            plt.title('Top 10 Most Frequent Words')
-            plt.xlabel('Words')
-            plt.ylabel('Frequency')
-            plt.xticks(rotation=45, ha='right')
-            
-            # Add value labels on top of bars
-            for bar in bars:
-                height = bar.get_height()
-                plt.text(bar.get_x() + bar.get_width()/2., height,
-                        f'{int(height)}',
-                        ha='center', va='bottom')
+            # Plot top 10 words (or fewer if less available)
+            top_n = min(10, len(self.df))
+            if top_n > 0:
+                top_words = self.df.head(top_n)
+                bars = plt.bar(top_words['word'], top_words['frequency'])
+                
+                # Customize plot
+                plt.title('Most Frequent Words')
+                plt.xlabel('Words')
+                plt.ylabel('Frequency')
+                plt.xticks(rotation=45, ha='right')
+                
+                # Add value labels on top of bars
+                for bar in bars:
+                    height = bar.get_height()
+                    plt.text(bar.get_x() + bar.get_width()/2., height,
+                            f'{int(height)}',
+                            ha='center', va='bottom')
+            else:
+                # No words to plot
+                plt.title('No Words Found')
+                plt.text(0.5, 0.5, 'No words found in the provided text', 
+                         horizontalalignment='center', verticalalignment='center',
+                         transform=plt.gca().transAxes, fontsize=14)
             
             # Adjust layout and save
             plt.tight_layout()
-            plt.savefig('output/word_frequencies_plot.png', dpi=300, bbox_inches='tight')
+            plt.savefig(os.path.join(self.output_dir, 'word_frequencies_plot.png'), dpi=300, bbox_inches='tight')
             plt.close()
             
         except Exception as e:
             print(f"Error in save_results: {str(e)}")
-            raise e
+            # Create a minimal plot on error
+            try:
+                plt.figure(figsize=(12, 6))
+                plt.title('Error Processing Text')
+                plt.text(0.5, 0.5, f'Error: {str(e)}', 
+                         horizontalalignment='center', verticalalignment='center',
+                         transform=plt.gca().transAxes, fontsize=14)
+                plt.tight_layout()
+                plt.savefig(os.path.join(self.output_dir, 'word_frequencies_plot.png'), dpi=300, bbox_inches='tight')
+                plt.close()
+            except:
+                pass
 
     def print_summary(self) -> None:
         """Print analysis summary."""
@@ -234,6 +302,25 @@ class WordFrequencyAnalyzer:
         pd.set_option('display.max_rows', None)
         pd.set_option('display.width', None)
         print(self.df.head(10).to_string(index=False))
+
+    def get_top_words(self, n=10) -> list:
+        """Get the top n most frequent words."""
+        if self.df is None:
+            raise ValueError("No analysis results available. Run analyze_text first.")
+        
+        top_n = self.df.head(n)
+        return top_n.to_dict('records')
+    
+    def get_total_words(self) -> int:
+        """Get the total number of words."""
+        return self.total_words
+    
+    def get_unique_words(self) -> int:
+        """Get the number of unique words."""
+        if self.word_counts is None:
+            raise ValueError("No analysis results available. Run analyze_text first.")
+        
+        return len(self.word_counts)
 
 def main():
     # Configure UTF-8 output

@@ -393,36 +393,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Plot section -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="plot-container">
-                                    <div class="plot-title">Group Averages (Original Scale -1 to 1)</div>
-                                    <div id="groupPlot"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="plot-container">
-                                    <div class="plot-title">Group Averages (Normalized by Mean)</div>
-                                    <div id="groupPlotNormalized"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="plot-container">
-                                    <div class="plot-title">Posts (Original Scale -1 to 1)</div>
-                                    <div id="postPlot"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="plot-container">
-                                    <div class="plot-title">Posts (Normalized by Mean)</div>
-                                    <div id="postPlotNormalized"></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -553,12 +523,6 @@
                     
                     window.vueApp.$data.dataframes = data.dataframes;  // Update Vue data
                     
-                    // Create all 4 plots
-                    createPlot(data.group_plot, 'groupPlot', 'Group Averages (Original)');
-                    createPlot(data.group_plot_normalized, 'groupPlotNormalized', 'Group Averages (Normalized)');
-                    createPlot(data.post_plot, 'postPlot', 'Posts (Original)');
-                    createPlot(data.post_plot_normalized, 'postPlotNormalized', 'Posts (Normalized)');
-                    
                     document.getElementById('scalingResults').style.display = 'block';
                 } else {
                     alert('Error: ' + data.error);
@@ -624,81 +588,6 @@
         }
 
         document.getElementById('wordCounterForm').addEventListener('submit', handleWordCounter);
-
-        // Plot handling functions
-        function createPlot(data, plotId, title) {
-            const traces = data.map(trace => ({
-                x: trace.x,
-                y: trace.y,
-                mode: 'markers+text',
-                type: 'scatter',
-                name: trace.name,
-                text: trace.text,
-                hovertext: trace.hovertext,
-                hoverinfo: 'text',
-                textposition: 'top center',
-                marker: {
-                    size: 12,
-                    color: trace.color,
-                    opacity: 0.8,
-                    line: {
-                        color: 'white',
-                        width: 1
-                    }
-                }
-            }));
-
-            const layout = {
-                title: title,
-                showlegend: true,
-                xaxis: {
-                    title: 'Valence',
-                    range: [-2, 2],
-                    zeroline: true,
-                    zerolinecolor: '#969696',
-                    gridcolor: '#bdbdbd',
-                    gridwidth: 1
-                },
-                yaxis: {
-                    title: 'Arousal',
-                    range: [-2, 2],
-                    zeroline: true,
-                    zerolinecolor: '#969696',
-                    gridcolor: '#bdbdbd',
-                    gridwidth: 1
-                },
-                plot_bgcolor: 'white',
-                paper_bgcolor: 'white',
-                margin: { t: 50, b: 50, l: 50, r: 50 }
-            };
-
-            Plotly.newPlot(plotId, traces, layout);
-        }
-
-        function downloadPlotAsPNG(plotId) {
-            Plotly.downloadImage(plotId, {
-                format: 'png',
-                height: 800,
-                width: 1200,
-                filename: plotId
-            });
-        }
-
-        async function copyPlotToClipboard(plotId) {
-            try {
-                const plotElement = document.getElementById(plotId);
-                const canvas = await html2canvas(plotElement);
-                canvas.toBlob(async (blob) => {
-                    await navigator.clipboard.write([
-                        new ClipboardItem({ 'image/png': blob })
-                    ]);
-                    alert('Plot copied to clipboard!');
-                });
-            } catch (err) {
-                console.error('Failed to copy plot:', err);
-                alert('Failed to copy plot to clipboard');
-            }
-        }
 
         document.addEventListener('DOMContentLoaded', function() {
             var coll = document.getElementsByClassName("collapsible");

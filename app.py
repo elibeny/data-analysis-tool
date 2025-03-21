@@ -17,7 +17,8 @@ from subproject2.word_frequency import WordFrequencyAnalyzer
 import subproject1.scaling_features as scaling
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()  # Use system temp directory
+app.config['UPLOAD_FOLDER'] = os.environ.get('TEMP_FOLDER', tempfile.gettempdir())  # Use system temp directory or environment variable
+app.config['OUTPUT_FOLDER'] = os.environ.get('OUTPUT_FOLDER', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output'))
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 # Add security headers
@@ -37,7 +38,16 @@ def add_plotly_headers(response):
 
 # Ensure upload and output directories exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-os.makedirs('output', exist_ok=True)
+os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
+
+# Set permissions for output directory (ignored on Windows)
+try:
+    if sys.platform != 'win32':
+        import stat
+        os.chmod(app.config['OUTPUT_FOLDER'], 
+                 stat.S_IRWXU | stat.S_IRWXG | stat.S_IROTH | stat.S_IXOTH)  # 0775
+except Exception as e:
+    print(f"Warning: Could not set permissions on output directory: {str(e)}")
 
 def get_color_palette(n):
     """Generate a color palette with n distinct colors"""
@@ -118,59 +128,47 @@ def analyze():
             if not text.strip():
                 return jsonify({'error': 'Empty text provided'}), 400
             
-            # Create timestamp for unique file names
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            text_file = os.path.join(app.config['UPLOAD_FOLDER'], f'text_{timestamp}.txt')
-            
             try:
-                # Save text to file
-                with open(text_file, 'w', encoding='utf-8') as f:
-                    f.write(text)
-                
                 # Analyze text
                 analyzer = WordFrequencyAnalyzer()
+                analyzer.output_dir = app.config['OUTPUT_FOLDER']
                 analyzer.analyze_text(text)
-                
-                # Ensure output directory exists
-                os.makedirs('output', exist_ok=True)
-                
-                # Save results
                 analyzer.save_results()
                 
-                # Read results
-                results_file = 'output/word_frequencies.csv'
-                if os.path.exists(results_file):
-                    df = pd.read_csv(results_file)
-                    if len(df) == 0:
-                        return jsonify({'error': 'No words found in text'}), 400
-                        
-                    total_words = int(df['frequency'].sum())  # Convert to int
-                    unique_words = len(df)
+                # Get results safely
+                try:
+                    frequencies = analyzer.get_top_words(10)
+                except:
+                    frequencies = []
                     
-                    # Convert frequencies to int for JSON serialization
-                    frequencies = df.to_dict('records')
-                    for item in frequencies:
-                        item['frequency'] = int(item['frequency'])
-                        item['percentage'] = float(item['percentage'])  # Convert to float
+                try:
+                    total_words = analyzer.get_total_words()
+                except:
+                    total_words = 0
                     
-                    return jsonify({
-                        'success': True,
-                        'frequencies': frequencies,
-                        'total_words': total_words,
-                        'unique_words': unique_words,
-                        'plot_url': '/output/word_frequencies_plot.png',
-                        'summary': f"Analysis complete! Found {unique_words} unique words out of {total_words} total words. The most frequent word was '{df.iloc[0]['word']}' appearing {int(df.iloc[0]['frequency'])} times ({float(df.iloc[0]['percentage']):.1f}% of total)."
-                    })
+                try:
+                    unique_words = analyzer.get_unique_words()
+                except:
+                    unique_words = 0
+                
+                # Prepare summary
+                if total_words > 0:
+                    summary = f"Analysis complete! Found {unique_words} unique words out of {total_words} total words."
                 else:
-                    return jsonify({'error': 'Analysis failed - no results file generated'}), 500
+                    summary = "No words found in the provided text. Please check your input."
+                
+                return jsonify({
+                    'success': True,
+                    'frequencies': frequencies,
+                    'summary': summary,
+                    'plot_url': '/output/word_frequencies_plot.png'
+                })
             except Exception as e:
-                print(f"Error in word counter analysis: {str(e)}")
-                return jsonify({'error': f'Analysis failed: {str(e)}'}), 500
-            finally:
-                # Clean up temporary file
-                if os.path.exists(text_file):
-                    os.remove(text_file)
-                    
+                print(f"Error in word counter: {str(e)}")
+                return jsonify({
+                    'error': f"Error processing text: {str(e)}"
+                }), 500
+            
         elif project_type == 'scaling':
             if 'file' not in request.files:
                 return jsonify({'error': 'No file uploaded'}), 400
@@ -179,25 +177,29 @@ def analyze():
             if file.filename == '':
                 return jsonify({'error': 'No file selected'}), 400
                 
-            if not allowed_file(file.filename, {'csv', 'xlsx', 'xls'}):
-                return jsonify({'error': 'Invalid file type'}), 400
-                
-            # Create timestamp for unique file names
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            filename = secure_filename(f"{timestamp}_{file.filename}")
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            
             # Save uploaded file
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
             
             try:
-                # Process the file and get all DataFrames
-                dfs = scaling.process_file(filepath)
+                # Process the file
+                dfs = scaling.process_file(filepath, app.config['OUTPUT_FOLDER'])
                 
-                # Debug prints
-                print("\nAvailable DataFrames:")
-                for name, df_info in dfs.items():
-                    print(f"{name}: {df_info['data'].columns.tolist()}")
+                # Debug: Print group averages and calculations
+                group_avgs = dfs['group_averages']['data']
+                print("\nDEBUG - Group Averages:")
+                print(group_avgs)
+                
+                # Calculate manually for verification
+                if 'valence_scaled_by_group_original' in group_avgs.columns:
+                    print("\nDEBUG - Manual Calculation:")
+                    for idx, row in group_avgs.iterrows():
+                        group = row['group']
+                        val = row['valence_scaled_by_group_original']
+                        if 'valence_scaled_by_group_normalized' in group_avgs.columns:
+                            norm = row['valence_scaled_by_group_normalized']
+                            print(f"Group {group}: {val} / ? = {norm}")
                 
                 # Prepare previews and file information
                 df_files = {}
@@ -228,13 +230,6 @@ def analyze():
                         'filename': output_filename
                     }
                 
-                # Prepare plot data for all 4 plots
-                print("\nPreparing plot data...")
-                group_plot_data = prepare_plot_data(dfs['group_averages']['data'], 'group', use_normalized=False, is_group_data=True)
-                group_plot_normalized_data = prepare_plot_data(dfs['group_averages']['data'], 'group', use_normalized=True, is_group_data=True)
-                post_plot_data = prepare_plot_data(dfs['df_scaled_by_post']['data'], 'post', use_normalized=False, is_group_data=False)
-                post_plot_normalized_data = prepare_plot_data(dfs['df_scaled_by_post']['data'], 'post', use_normalized=True, is_group_data=False)
-                
                 # Create summary
                 summary = (
                     f"Data scaling complete! Processed {dfs['df_original']['data'].shape[0]} rows and "
@@ -246,23 +241,20 @@ def analyze():
                 return jsonify({
                     'success': True,
                     'dataframes': df_files,
-                    'group_plot': group_plot_data,
-                    'group_plot_normalized': group_plot_normalized_data,
-                    'post_plot': post_plot_data,
-                    'post_plot_normalized': post_plot_normalized_data,
                     'summary': summary
                 })
+                
             except Exception as e:
-                print(f"Error processing file: {str(e)}")
                 return jsonify({'error': str(e)}), 500
             finally:
                 # Clean up uploaded file
                 if os.path.exists(filepath):
                     os.remove(filepath)
+                
         else:
             return jsonify({'error': 'Invalid project type'}), 400
+            
     except Exception as e:
-        print(f"Error in analyze route: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 def allowed_file(filename, allowed_extensions):
@@ -272,7 +264,7 @@ def allowed_file(filename, allowed_extensions):
 @app.route('/output/<path:filename>')
 def download_file(filename):
     """Download a file from the output directory"""
-    return send_file(os.path.join('output', filename), as_attachment=True)
+    return send_file(os.path.join(app.config['OUTPUT_FOLDER'], filename), as_attachment=True)
 
 @app.errorhandler(404)
 def not_found_error(error):
@@ -290,5 +282,6 @@ if __name__ == '__main__':
     # Development
     app.run(debug=True)
 else:
-    # Production
-    app.run(debug=False)
+    # Production - debug should be false and host should listen on all interfaces
+    # These settings will be overridden by gunicorn in production
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
