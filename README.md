@@ -59,6 +59,43 @@ This will start a Flask server at http://localhost:5000.
 
 ## Deployment
 
+### Firebase Deployment
+
+This application is configured for deployment on Firebase:
+
+1. **Prerequisites**:
+   - Node.js and npm installed
+   - Firebase account
+
+2. **Setup**:
+   ```bash
+   # Install Firebase CLI globally
+   npm install -g firebase-tools
+
+   # Login to Firebase
+   firebase login
+   ```
+
+3. **Install Dependencies**:
+   ```bash
+   # Install dependencies for Cloud Functions
+   cd functions
+   npm install
+   cd ..
+   ```
+
+4. **Deploy**:
+   ```bash
+   # Deploy to Firebase
+   firebase deploy
+   ```
+
+5. **Access**:
+   After deployment, your application will be available at:
+   https://data-analysis-tool-8416d.web.app
+
+### Alternative Deployment (Render.com)
+
 This application is ready for deployment on Render.com:
 
 1. Push your code to GitHub.
