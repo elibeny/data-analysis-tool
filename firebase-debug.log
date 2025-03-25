@@ -1,365 +1,57 @@
-[debug] [2025-03-24T10:02:00.714Z] ----------------------------------------------------------------------
-[debug] [2025-03-24T10:02:00.716Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
-[debug] [2025-03-24T10:02:00.716Z] CLI Version:   13.35.1
-[debug] [2025-03-24T10:02:00.716Z] Platform:      win32
-[debug] [2025-03-24T10:02:00.716Z] Node Version:  v22.14.0
-[debug] [2025-03-24T10:02:00.716Z] Time:          Mon Mar 24 2025 12:02:00 GMT+0200 (שעון ישראל (חורף))
-[debug] [2025-03-24T10:02:00.717Z] ----------------------------------------------------------------------
+[debug] [2025-03-24T13:23:29.492Z] ----------------------------------------------------------------------
+[debug] [2025-03-24T13:23:29.493Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only hosting
+[debug] [2025-03-24T13:23:29.494Z] CLI Version:   13.35.1
+[debug] [2025-03-24T13:23:29.494Z] Platform:      win32
+[debug] [2025-03-24T13:23:29.494Z] Node Version:  v22.14.0
+[debug] [2025-03-24T13:23:29.494Z] Time:          Mon Mar 24 2025 15:23:29 GMT+0200 (שעון ישראל (חורף))
+[debug] [2025-03-24T13:23:29.494Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2025-03-24T10:02:00.826Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2025-03-24T10:02:00.826Z] > authorizing via signed-in user (elibenyaminov@gmail.com)
-[debug] [2025-03-24T10:02:00.826Z] [iam] checking project data-analysis-tool-8416d for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
-[debug] [2025-03-24T10:02:00.827Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:00.827Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:00.827Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions [none]
-[debug] [2025-03-24T10:02:00.827Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:00.827Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
-[debug] [2025-03-24T10:02:01.127Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions 200
-[debug] [2025-03-24T10:02:01.127Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
-[debug] [2025-03-24T10:02:01.128Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:01.128Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:01.128Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/data-analysis-tool-8416d/serviceAccounts/data-analysis-tool-8416d@appspot.gserviceaccount.com:testIamPermissions [none]
-[debug] [2025-03-24T10:02:01.128Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/data-analysis-tool-8416d/serviceAccounts/data-analysis-tool-8416d@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2025-03-24T10:02:02.127Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/data-analysis-tool-8416d/serviceAccounts/data-analysis-tool-8416d@appspot.gserviceaccount.com:testIamPermissions 200
-[debug] [2025-03-24T10:02:02.127Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/data-analysis-tool-8416d/serviceAccounts/data-analysis-tool-8416d@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
-[debug] [2025-03-24T10:02:02.128Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:02.128Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:02.128Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d [none]
-[debug] [2025-03-24T10:02:02.477Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d 200
-[debug] [2025-03-24T10:02:02.477Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d {"projectId":"data-analysis-tool-8416d","projectNumber":"523204354654","displayName":"data-analysis-tool","name":"projects/data-analysis-tool-8416d","resources":{"hostingSite":"data-analysis-tool-8416d"},"state":"ACTIVE","etag":"1_f65d37f5-5b66-41d8-85ed-3ee220f3214b"}
-[info] 
-[info] === Deploying to 'data-analysis-tool-8416d'...
-[info] 
-[info] i  deploying storage, functions, hosting 
-[info] i  storage: ensuring required API firebasestorage.googleapis.com is enabled... 
-[debug] [2025-03-24T10:02:02.484Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:02.484Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:02.484Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/firebasestorage.googleapis.com [none]
-[debug] [2025-03-24T10:02:02.484Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/firebasestorage.googleapis.com x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:03.685Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/firebasestorage.googleapis.com 200
-[debug] [2025-03-24T10:02:03.685Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/firebasestorage.googleapis.com [omitted]
-[info] +  storage: required API firebasestorage.googleapis.com is enabled 
-[debug] [2025-03-24T10:02:03.687Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:03.687Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:03.687Z] >>> [apiv2][query] GET https://firebasestorage.googleapis.com/v1alpha/projects/data-analysis-tool-8416d/defaultBucket [none]
-[debug] [2025-03-24T10:02:04.293Z] <<< [apiv2][status] GET https://firebasestorage.googleapis.com/v1alpha/projects/data-analysis-tool-8416d/defaultBucket 200
-[debug] [2025-03-24T10:02:04.293Z] <<< [apiv2][body] GET https://firebasestorage.googleapis.com/v1alpha/projects/data-analysis-tool-8416d/defaultBucket {"name":"projects/data-analysis-tool-8416d/defaultBucket","location":"US-CENTRAL1","bucket":{"name":"projects/data-analysis-tool-8416d/buckets/data-analysis-tool-8416d.firebasestorage.app"},"storageClass":"REGIONAL"}
-[info] i  firebase.storage: checking storage.rules for compilation errors... 
-[debug] [2025-03-24T10:02:04.296Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:04.296Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:04.296Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d:test [none]
-[debug] [2025-03-24T10:02:04.296Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d:test [omitted]
-[debug] [2025-03-24T10:02:05.115Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d:test 200
-[debug] [2025-03-24T10:02:05.115Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d:test {}
-[info] +  firebase.storage: rules file storage.rules compiled successfully 
-[debug] [2025-03-24T10:02:05.117Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.117Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.118Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d [none]
-[debug] [2025-03-24T10:02:05.334Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d 200
-[debug] [2025-03-24T10:02:05.334Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d {"projectNumber":"523204354654","projectId":"data-analysis-tool-8416d","lifecycleState":"ACTIVE","name":"data-analysis-tool","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-03-24T09:21:30.114622Z"}
-[info] i  functions: preparing codebase default for deployment 
-[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
-[debug] [2025-03-24T10:02:05.337Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.337Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.337Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.337Z] Checked if tokens are valid: true, expires at: 1742811522009
-[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
-[debug] [2025-03-24T10:02:05.338Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.338Z] Checked if tokens are valid: true, expires at: 1742811522009
-[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
-[debug] [2025-03-24T10:02:05.339Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.339Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:05.340Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudfunctions.googleapis.com [none]
-[debug] [2025-03-24T10:02:05.340Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:05.341Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/runtimeconfig.googleapis.com [none]
-[debug] [2025-03-24T10:02:05.341Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:05.345Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudbuild.googleapis.com [none]
-[debug] [2025-03-24T10:02:05.345Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudbuild.googleapis.com x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:05.348Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/artifactregistry.googleapis.com [none]
-[debug] [2025-03-24T10:02:05.348Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/artifactregistry.googleapis.com x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:06.423Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudfunctions.googleapis.com 200
-[debug] [2025-03-24T10:02:06.423Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudfunctions.googleapis.com [omitted]
-[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
-[debug] [2025-03-24T10:02:06.446Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/runtimeconfig.googleapis.com 200
-[debug] [2025-03-24T10:02:06.446Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/runtimeconfig.googleapis.com [omitted]
-[debug] [2025-03-24T10:02:06.471Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/artifactregistry.googleapis.com 200
-[debug] [2025-03-24T10:02:06.471Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/artifactregistry.googleapis.com [omitted]
-[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
-[debug] [2025-03-24T10:02:06.476Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudbuild.googleapis.com 200
-[debug] [2025-03-24T10:02:06.476Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/data-analysis-tool-8416d/services/cloudbuild.googleapis.com [omitted]
-[info] +  functions: required API cloudbuild.googleapis.com is enabled 
-[debug] [2025-03-24T10:02:06.477Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:06.477Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:06.477Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/adminSdkConfig [none]
-[debug] [2025-03-24T10:02:07.050Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/adminSdkConfig 200
-[debug] [2025-03-24T10:02:07.050Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/adminSdkConfig {"projectId":"data-analysis-tool-8416d","storageBucket":"data-analysis-tool-8416d.firebasestorage.app"}
-[debug] [2025-03-24T10:02:07.051Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:07.051Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:07.051Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/configs [none]
-[debug] [2025-03-24T10:02:07.437Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/configs 200
-[debug] [2025-03-24T10:02:07.437Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/configs {}
-[debug] [2025-03-24T10:02:07.440Z] Validating nodejs source
-[warn] !  functions: Runtime Node.js 18 will be deprecated on 2025-04-30 and will be decommissioned on 2025-10-31, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
-[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
-[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
-[debug] [2025-03-24T10:02:08.209Z] > [functions] package.json contents: {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
-  "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "18"
-  },
-  "main": "index.js",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "firebase-admin": "^11.8.0",
-    "firebase-functions": "^4.3.1",
-    "multer": "^1.4.5-lts.1",
-    "xlsx": "^0.18.5"
-  },
-  "private": true
-}
-[debug] [2025-03-24T10:02:08.209Z] Building nodejs source
-[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
-[info] i  functions: You are using a version of firebase-functions SDK (4.9.0) that does not have support for the newest Firebase Extensions features. Please update firebase-functions SDK to >=5.1.0 to use them correctly 
-[debug] [2025-03-24T10:02:08.211Z] Could not find functions.yaml. Must use http discovery
-[debug] [2025-03-24T10:02:08.216Z] Found firebase-functions binary at 'C:\Users\eli\sivan\project_1\functions\node_modules\.bin\firebase-functions'
-[info] Serving at port 8900
-
-[debug] [2025-03-24T10:02:08.585Z] Got response from /__/functions.yaml {"endpoints":{"api":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"api"}},"specVersion":"v1alpha1","requiredAPIs":[]}
-[info] i  functions: preparing functions directory for uploading... 
-[info] i  functions: packaged C:\Users\eli\sivan\project_1\functions (41.78 KB) for uploading 
-[debug] [2025-03-24T10:02:12.645Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:12.645Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:12.645Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/-/functions [none]
-[debug] [2025-03-24T10:02:13.342Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/-/functions 200
-[debug] [2025-03-24T10:02:13.342Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/-/functions {}
-[debug] [2025-03-24T10:02:13.342Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:13.342Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:13.343Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/data-analysis-tool-8416d/locations/-/functions filter=environment%3D%22GEN_2%22
-[debug] [2025-03-24T10:02:14.319Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/data-analysis-tool-8416d/locations/-/functions 200
-[debug] [2025-03-24T10:02:14.319Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/data-analysis-tool-8416d/locations/-/functions {}
-[debug] [2025-03-24T10:02:14.322Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:14.323Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:14.323Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d [none]
-[debug] [2025-03-24T10:02:15.287Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d 200
-[debug] [2025-03-24T10:02:15.287Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d {"projectNumber":"523204354654","projectId":"data-analysis-tool-8416d","lifecycleState":"ACTIVE","name":"data-analysis-tool","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-03-24T09:21:30.114622Z"}
-[debug] [2025-03-24T10:02:15.290Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:15.290Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:15.291Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/data-analysis-tool-8416d/versions [none]
-[debug] [2025-03-24T10:02:15.291Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/data-analysis-tool-8416d/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
-[debug] [2025-03-24T10:02:17.156Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/data-analysis-tool-8416d/versions 200
-[debug] [2025-03-24T10:02:17.156Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/data-analysis-tool-8416d/versions {"name":"projects/523204354654/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
-[debug] [2025-03-24T10:02:17.158Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:17.158Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:17.158Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases pageSize=10&pageToken=
-[debug] [2025-03-24T10:02:17.558Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases 200
-[debug] [2025-03-24T10:02:17.558Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases {"releases":[{"name":"projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app","rulesetName":"projects/data-analysis-tool-8416d/rulesets/45069425-1acc-4d89-b74c-a209ff101a54","createTime":"2025-03-24T09:50:45.997214Z","updateTime":"2025-03-24T09:50:45.997214Z"}]}
-[debug] [2025-03-24T10:02:17.558Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:17.558Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:17.558Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets/45069425-1acc-4d89-b74c-a209ff101a54 [none]
-[debug] [2025-03-24T10:02:17.785Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets/45069425-1acc-4d89-b74c-a209ff101a54 200
-[debug] [2025-03-24T10:02:17.786Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets/45069425-1acc-4d89-b74c-a209ff101a54 [omitted]
-[info] i  storage: uploading rules storage.rules... 
-[debug] [2025-03-24T10:02:17.788Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:17.788Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:17.789Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets [none]
-[debug] [2025-03-24T10:02:17.789Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets [omitted]
-[debug] [2025-03-24T10:02:18.142Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets 200
-[debug] [2025-03-24T10:02:18.142Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/rulesets {"name":"projects/data-analysis-tool-8416d/rulesets/87bbfd20-ffc1-4599-97c4-1c103f4e5d0a","source":{"files":[{"content":"rules_version = '2';\nservice firebase.storage {\n  match /b/{bucket}/o {\n    match /{allPaths=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}\n","name":"storage.rules"}]},"createTime":"2025-03-24T10:02:16.974863Z","metadata":{"services":["firebase.storage"]}}
-[debug] [2025-03-24T10:02:18.142Z] [rules] created ruleset projects/data-analysis-tool-8416d/rulesets/87bbfd20-ffc1-4599-97c4-1c103f4e5d0a
-[debug] [2025-03-24T10:02:18.143Z] [functions] found 1 new HTTP functions, testing setIamPolicy permission...
-[debug] [2025-03-24T10:02:18.143Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:18.143Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:18.143Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions [none]
-[debug] [2025-03-24T10:02:18.144Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions x-goog-quota-user=projects/data-analysis-tool-8416d
-[debug] [2025-03-24T10:02:18.144Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions {"permissions":["cloudfunctions.functions.setIamPolicy"]}
-[debug] [2025-03-24T10:02:18.325Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions 200
-[debug] [2025-03-24T10:02:18.325Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions {"permissions":["cloudfunctions.functions.setIamPolicy"]}
-[debug] [2025-03-24T10:02:18.325Z] [functions] found setIamPolicy permission, proceeding with deploy
-[debug] [2025-03-24T10:02:18.325Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:18.325Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:18.326Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions:generateUploadUrl [none]
-[debug] [2025-03-24T10:02:18.326Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions:generateUploadUrl {}
-[debug] [2025-03-24T10:02:28.619Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions:generateUploadUrl 200
-[debug] [2025-03-24T10:02:28.620Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/uploads-117107024970.us-central1.cloudfunctions.appspot.com/80cfe5b2-5457-4c23-aa2a-14bff4a9c402.zip?GoogleAccessId=service-523204354654@gcf-admin-robot.iam.gserviceaccount.com&Expires=1742812347&Signature=UbyjRItRgT%2BWagUZDz3t9p424TqiPpr8WChL4dnZau1pfm1wX9Vf9EkBW9D4NJXgoXqAaOkK03ByGe66l9ox1bogTvF1LSRPZVHXPOzY%2FNVHlZSMWIjeS9nCvZhi24t1MtLmbfGRzULrWCDz65rTSgScrAmxlfHmoviUu858REMeitCK%2FRD%2BgjiUPgeBJp%2FQX1gR5BzxV5h5UD%2FaORV6zo7wnTRaDsBZATiwOt3JP%2B7Zt8boRChKX8YHMGt1%2F%2F1K6zZ0X7qHcYVOJg6PqbhsJjL%2BvWZ0csjLKHXyPRti%2BZjzXjB6OepmSMzPO%2FLxy0WocnEBEQg%2F3xJFWtk8N2kPqQ%3D%3D"}
-[debug] [2025-03-24T10:02:28.620Z] >>> [apiv2][query] PUT https://storage.googleapis.com/uploads-117107024970.us-central1.cloudfunctions.appspot.com/80cfe5b2-5457-4c23-aa2a-14bff4a9c402.zip GoogleAccessId=service-523204354654%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1742812347&Signature=UbyjRItRgT%2BWagUZDz3t9p424TqiPpr8WChL4dnZau1pfm1wX9Vf9EkBW9D4NJXgoXqAaOkK03ByGe66l9ox1bogTvF1LSRPZVHXPOzY%2FNVHlZSMWIjeS9nCvZhi24t1MtLmbfGRzULrWCDz65rTSgScrAmxlfHmoviUu858REMeitCK%2FRD%2BgjiUPgeBJp%2FQX1gR5BzxV5h5UD%2FaORV6zo7wnTRaDsBZATiwOt3JP%2B7Zt8boRChKX8YHMGt1%2F%2F1K6zZ0X7qHcYVOJg6PqbhsJjL%2BvWZ0csjLKHXyPRti%2BZjzXjB6OepmSMzPO%2FLxy0WocnEBEQg%2F3xJFWtk8N2kPqQ%3D%3D
-[debug] [2025-03-24T10:02:28.620Z] >>> [apiv2][body] PUT https://storage.googleapis.com/uploads-117107024970.us-central1.cloudfunctions.appspot.com/80cfe5b2-5457-4c23-aa2a-14bff4a9c402.zip [stream]
-[debug] [2025-03-24T10:02:29.160Z] <<< [apiv2][status] PUT https://storage.googleapis.com/uploads-117107024970.us-central1.cloudfunctions.appspot.com/80cfe5b2-5457-4c23-aa2a-14bff4a9c402.zip 200
-[debug] [2025-03-24T10:02:29.161Z] <<< [apiv2][body] PUT https://storage.googleapis.com/uploads-117107024970.us-central1.cloudfunctions.appspot.com/80cfe5b2-5457-4c23-aa2a-14bff4a9c402.zip [omitted]
-[info] +  functions: functions folder uploaded successfully 
-[info] i  hosting[data-analysis-tool-8416d]: beginning deploy... 
-[info] i  hosting[data-analysis-tool-8416d]: found 5 files in public 
-[debug] [2025-03-24T10:02:29.180Z] [hosting] uploading with 200 concurrency
-[debug] [2025-03-24T10:02:29.181Z] [hosting] hash cache [cHVibGlj] not populated
-[debug] [2025-03-24T10:02:29.188Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:29.188Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:29.221Z] [hosting] hash cache [cHVibGlj] stored for 5 files
-[debug] [2025-03-24T10:02:29.222Z] [hosting][hash queue][FINAL] {"max":4,"min":3,"avg":3.2,"active":0,"complete":5,"success":5,"errored":0,"retried":0,"total":5,"elapsed":39}
-[debug] [2025-03-24T10:02:29.222Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/523204354654/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205:populateFiles [none]
-[debug] [2025-03-24T10:02:29.222Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/523204354654/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205:populateFiles {"files":{"/firebase-config.js":"4de2ab9dc36b812919b9408ea2fc2f899e61d06d66ddc7a84d18ddf249c82d11","/styles.css":"6ee58020ed23b786ad590d7ea7e909c9bfa289bb71c8a19911c8f8aa0e31266c","/404.html":"762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890","/index.html":"ffe07f081cda77431ed7e380804154f6b1f702f84499378d088d0689e0511878","/app.js":"1f2fde5c2e6b44d54ce076aab21487f93eb4a5e4983c6d311f9f908854c3ec2c"}}
-[debug] [2025-03-24T10:02:30.315Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/523204354654/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205:populateFiles 200
-[debug] [2025-03-24T10:02:30.316Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/523204354654/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205:populateFiles {"uploadRequiredHashes":["ffe07f081cda77431ed7e380804154f6b1f702f84499378d088d0689e0511878","1f2fde5c2e6b44d54ce076aab21487f93eb4a5e4983c6d311f9f908854c3ec2c","4de2ab9dc36b812919b9408ea2fc2f899e61d06d66ddc7a84d18ddf249c82d11","6ee58020ed23b786ad590d7ea7e909c9bfa289bb71c8a19911c8f8aa0e31266c","762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files"}
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:30.316Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/ffe07f081cda77431ed7e380804154f6b1f702f84499378d088d0689e0511878 [none]
-[debug] [2025-03-24T10:02:30.316Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/ffe07f081cda77431ed7e380804154f6b1f702f84499378d088d0689e0511878 [stream]
-[debug] [2025-03-24T10:02:30.317Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/1f2fde5c2e6b44d54ce076aab21487f93eb4a5e4983c6d311f9f908854c3ec2c [none]
-[debug] [2025-03-24T10:02:30.317Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/1f2fde5c2e6b44d54ce076aab21487f93eb4a5e4983c6d311f9f908854c3ec2c [stream]
-[debug] [2025-03-24T10:02:30.318Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/4de2ab9dc36b812919b9408ea2fc2f899e61d06d66ddc7a84d18ddf249c82d11 [none]
-[debug] [2025-03-24T10:02:30.318Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/4de2ab9dc36b812919b9408ea2fc2f899e61d06d66ddc7a84d18ddf249c82d11 [stream]
-[debug] [2025-03-24T10:02:30.318Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/6ee58020ed23b786ad590d7ea7e909c9bfa289bb71c8a19911c8f8aa0e31266c [none]
-[debug] [2025-03-24T10:02:30.318Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/6ee58020ed23b786ad590d7ea7e909c9bfa289bb71c8a19911c8f8aa0e31266c [stream]
-[debug] [2025-03-24T10:02:30.319Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890 [none]
-[debug] [2025-03-24T10:02:30.319Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890 [stream]
-[debug] [2025-03-24T10:02:30.320Z] [hosting][populate queue][FINAL] {"max":1129,"min":1129,"avg":1129,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1133}
-[debug] [2025-03-24T10:02:30.320Z] [hosting] uploads queued: 5
-[debug] [2025-03-24T10:02:31.570Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/1f2fde5c2e6b44d54ce076aab21487f93eb4a5e4983c6d311f9f908854c3ec2c 200
-[debug] [2025-03-24T10:02:31.571Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/1f2fde5c2e6b44d54ce076aab21487f93eb4a5e4983c6d311f9f908854c3ec2c [stream]
-[debug] [2025-03-24T10:02:31.582Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890 200
-[debug] [2025-03-24T10:02:31.582Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/762bf484ba67404bd1a3b181546ea28d60dfddf18e9dd4795d8d25bcf3c1a890 [stream]
-[debug] [2025-03-24T10:02:31.583Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/6ee58020ed23b786ad590d7ea7e909c9bfa289bb71c8a19911c8f8aa0e31266c 200
-[debug] [2025-03-24T10:02:31.583Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/6ee58020ed23b786ad590d7ea7e909c9bfa289bb71c8a19911c8f8aa0e31266c [stream]
-[debug] [2025-03-24T10:02:31.639Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/ffe07f081cda77431ed7e380804154f6b1f702f84499378d088d0689e0511878 200
-[debug] [2025-03-24T10:02:31.639Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/ffe07f081cda77431ed7e380804154f6b1f702f84499378d088d0689e0511878 [stream]
-[debug] [2025-03-24T10:02:31.806Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/4de2ab9dc36b812919b9408ea2fc2f899e61d06d66ddc7a84d18ddf249c82d11 200
-[debug] [2025-03-24T10:02:31.806Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/data-analysis-tool-8416d/versions/0f83ff6e4c9a9205/files/4de2ab9dc36b812919b9408ea2fc2f899e61d06d66ddc7a84d18ddf249c82d11 [stream]
-[debug] [2025-03-24T10:02:31.806Z] [hosting][upload queue][FINAL] {"max":1490,"min":1255,"avg":1320.2,"active":0,"complete":5,"success":5,"errored":0,"retried":0,"total":5,"elapsed":1490}
-[info] +  hosting[data-analysis-tool-8416d]: file upload complete 
-[debug] [2025-03-24T10:02:31.807Z] [hosting] deploy completed after 2641ms
-[debug] [2025-03-24T10:02:31.808Z] [rules] releasing firebase.storage/data-analysis-tool-8416d.firebasestorage.app with ruleset projects/data-analysis-tool-8416d/rulesets/87bbfd20-ffc1-4599-97c4-1c103f4e5d0a
-[debug] [2025-03-24T10:02:31.808Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:31.808Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:31.808Z] >>> [apiv2][query] PATCH https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app [none]
-[debug] [2025-03-24T10:02:31.808Z] >>> [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app {"release":{"name":"projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app","rulesetName":"projects/data-analysis-tool-8416d/rulesets/87bbfd20-ffc1-4599-97c4-1c103f4e5d0a"}}
-[debug] [2025-03-24T10:02:32.783Z] <<< [apiv2][status] PATCH https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app 200
-[debug] [2025-03-24T10:02:32.783Z] <<< [apiv2][body] PATCH https://firebaserules.googleapis.com/v1/projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app {"name":"projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app","rulesetName":"projects/data-analysis-tool-8416d/rulesets/87bbfd20-ffc1-4599-97c4-1c103f4e5d0a","createTime":"2025-03-24T09:50:45.997214Z","updateTime":"2025-03-24T10:02:31.612081Z"}
-[debug] [2025-03-24T10:02:32.783Z] [rules] updated release projects/data-analysis-tool-8416d/releases/firebase.storage/data-analysis-tool-8416d.firebasestorage.app
-[info] +  storage: released rules storage.rules to firebase.storage 
-[info] i  functions: creating Node.js 18 (1st Gen) function api(us-central1)... 
-[debug] [2025-03-24T10:02:32.785Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:32.785Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:32.785Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions [none]
-[debug] [2025-03-24T10:02:32.785Z] >>> [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions {"name":"projects/data-analysis-tool-8416d/locations/us-central1/functions/api","sourceUploadUrl":"https://storage.googleapis.com/uploads-117107024970.us-central1.cloudfunctions.appspot.com/80cfe5b2-5457-4c23-aa2a-14bff4a9c402.zip?GoogleAccessId=service-523204354654@gcf-admin-robot.iam.gserviceaccount.com&Expires=1742812347&Signature=UbyjRItRgT%2BWagUZDz3t9p424TqiPpr8WChL4dnZau1pfm1wX9Vf9EkBW9D4NJXgoXqAaOkK03ByGe66l9ox1bogTvF1LSRPZVHXPOzY%2FNVHlZSMWIjeS9nCvZhi24t1MtLmbfGRzULrWCDz65rTSgScrAmxlfHmoviUu858REMeitCK%2FRD%2BgjiUPgeBJp%2FQX1gR5BzxV5h5UD%2FaORV6zo7wnTRaDsBZATiwOt3JP%2B7Zt8boRChKX8YHMGt1%2F%2F1K6zZ0X7qHcYVOJg6PqbhsJjL%2BvWZ0csjLKHXyPRti%2BZjzXjB6OepmSMzPO%2FLxy0WocnEBEQg%2F3xJFWtk8N2kPqQ%3D%3D","entryPoint":"api","runtime":"nodejs18","dockerRegistry":"ARTIFACT_REGISTRY","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"f0ade9b5ebef7215189432acb0d8c62688941ffa"},"httpsTrigger":{"securityLevel":"SECURE_ALWAYS"},"minInstances":null,"maxInstances":null,"ingressSettings":null,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"data-analysis-tool-8416d\",\"storageBucket\":\"data-analysis-tool-8416d.firebasestorage.app\"}","GCLOUD_PROJECT":"data-analysis-tool-8416d","EVENTARC_CLOUD_EVENT_SOURCE":"projects/data-analysis-tool-8416d/locations/us-central1/functions/api"},"serviceAccountEmail":null,"availableMemoryMb":null,"timeout":null,"vpcConnector":null,"vpcConnectorEgressSettings":null,"buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}}
-[debug] [2025-03-24T10:02:36.604Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions 400
-[debug] [2025-03-24T10:02:36.605Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions {"error":{"code":400,"message":"Failed to create 1st Gen function projects/data-analysis-tool-8416d/locations/us-central1/functions/api: Default service account '523204354654-compute@developer.gserviceaccount.com' doesn't exist. Please recreate this account or specify a different account. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.","status":"FAILED_PRECONDITION"}}
-[warn] !  functions: failed to create function projects/data-analysis-tool-8416d/locations/us-central1/functions/api 
-[error] Failed to create function projects/data-analysis-tool-8416d/locations/us-central1/functions/api
-[debug] [2025-03-24T10:02:36.615Z] Total Function Deployment time: 3823
-[debug] [2025-03-24T10:02:36.615Z] 1 Functions Deployed
-[debug] [2025-03-24T10:02:36.616Z] 1 Functions Errored
-[debug] [2025-03-24T10:02:36.616Z] 0 Function Deployments Aborted
-[debug] [2025-03-24T10:02:36.616Z] Average Function Deployment time: 3822
-[info] 
-[info] Functions deploy had errors with the following functions:
-	api(us-central1)
-[debug] [2025-03-24T10:02:36.764Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
-[info] i  functions: cleaning up build files... 
-[debug] [2025-03-24T10:02:36.765Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:36.766Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:36.767Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:36.767Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:36.767Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/repositories/gcf-artifacts/packages/api [none]
-[debug] [2025-03-24T10:02:36.768Z] >>> [apiv2][query] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list [none]
-[debug] [2025-03-24T10:02:37.624Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/repositories/gcf-artifacts/packages/api 404
-[debug] [2025-03-24T10:02:37.624Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/repositories/gcf-artifacts/packages/api {"error":{"code":404,"message":"Package \"projects/data-analysis-tool-8416d/locations/us-central1/repositories/gcf-artifacts/packages/api\" was not found.","status":"NOT_FOUND"}}
-[debug] [2025-03-24T10:02:38.114Z] <<< [apiv2][status] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list 404
-[debug] [2025-03-24T10:02:38.115Z] <<< [apiv2][body] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
-[debug] [2025-03-24T10:02:38.115Z] Failed docker command with error  Request to https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list had HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list had HTTP Error: 404, Not Found","status":404}
-[debug] [2025-03-24T10:02:38.127Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:38.127Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:38.127Z] >>> [apiv2][query] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list [none]
-[debug] [2025-03-24T10:02:38.390Z] <<< [apiv2][status] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list 404
-[debug] [2025-03-24T10:02:38.390Z] <<< [apiv2][body] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
-[debug] [2025-03-24T10:02:38.391Z] Failed docker command with error  Request to https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list had HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list had HTTP Error: 404, Not Found","status":404}
-[debug] [2025-03-24T10:02:38.495Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:38.495Z] Checked if tokens are valid: true, expires at: 1742811522009
-[debug] [2025-03-24T10:02:38.495Z] >>> [apiv2][query] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list [none]
-[debug] [2025-03-24T10:02:38.769Z] <<< [apiv2][status] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list 404
-[debug] [2025-03-24T10:02:38.769Z] <<< [apiv2][body] GET https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
-[debug] [2025-03-24T10:02:38.769Z] Failed docker command with error  Request to https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list had HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"Request to https://us.gcr.io/v2/data-analysis-tool-8416d/gcf/us-central1/tags/list had HTTP Error: 404, Not Found","status":404}
-[warn] !  functions: Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/data-analysis-tool-8416d/us/gcf 
-[debug] [2025-03-24T10:02:38.769Z] Functions deploy failed.
-[debug] [2025-03-24T10:02:38.769Z] {
-  "endpoint": {
-    "id": "api",
-    "project": "data-analysis-tool-8416d",
-    "region": "us-central1",
-    "entryPoint": "api",
-    "platform": "gcfv1",
-    "runtime": "nodejs18",
-    "httpsTrigger": {},
-    "ingressSettings": null,
-    "availableMemoryMb": null,
-    "serviceAccount": null,
-    "timeoutSeconds": null,
-    "maxInstances": null,
-    "minInstances": null,
-    "vpc": null,
-    "environmentVariables": {
-      "FIREBASE_CONFIG": "{\"projectId\":\"data-analysis-tool-8416d\",\"storageBucket\":\"data-analysis-tool-8416d.firebasestorage.app\"}",
-      "GCLOUD_PROJECT": "data-analysis-tool-8416d",
-      "EVENTARC_CLOUD_EVENT_SOURCE": "projects/data-analysis-tool-8416d/locations/us-central1/functions/api"
-    },
-    "codebase": "default",
-    "targetedByOnly": false,
-    "hash": "f0ade9b5ebef7215189432acb0d8c62688941ffa",
-    "labels": {
-      "deployment-tool": "cli-firebase"
-    }
-  },
-  "op": "create",
-  "original": {
-    "name": "FirebaseError",
-    "children": [],
-    "context": {
-      "function": "projects/data-analysis-tool-8416d/locations/us-central1/functions/api"
-    },
-    "exit": 1,
-    "message": "Failed to create function projects/data-analysis-tool-8416d/locations/us-central1/functions/api",
-    "original": {
-      "name": "FirebaseError",
-      "children": [],
-      "context": {
-        "body": {
-          "error": {
-            "code": 400,
-            "message": "Failed to create 1st Gen function projects/data-analysis-tool-8416d/locations/us-central1/functions/api: Default service account '523204354654-compute@developer.gserviceaccount.com' doesn't exist. Please recreate this account or specify a different account. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.",
-            "status": "FAILED_PRECONDITION"
-          }
-        },
-        "response": {
-          "statusCode": 400
-        }
-      },
-      "exit": 1,
-      "message": "Request to https://cloudfunctions.googleapis.com/v1/projects/data-analysis-tool-8416d/locations/us-central1/functions had HTTP Error: 400, Failed to create 1st Gen function projects/data-analysis-tool-8416d/locations/us-central1/functions/api: Default service account '523204354654-compute@developer.gserviceaccount.com' doesn't exist. Please recreate this account or specify a different account. Please visit https://cloud.google.com/functions/docs/troubleshooting for in-depth troubleshooting documentation.",
-      "status": 400
-    },
-    "status": 400,
-    "code": 400
-  }
-}
-[debug] [2025-03-24T10:02:38.833Z] Error: Failed to create function api in region us-central1
-    at C:\Users\eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:52:11
-    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
-    at async Fabricator.createV1Function (C:\Users\eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:182:32)
-    at async Fabricator.createEndpoint (C:\Users\eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:134:13)
-    at async handle (C:\Users\eli\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\functions\release\fabricator.js:89:17)
-[error] 
-[error] Error: There was an error deploying functions
+[debug] [2025-03-24T13:23:29.677Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-24T13:23:29.677Z] > authorizing via signed-in user (elibenyaminov@gmail.com)
+[debug] [2025-03-24T13:23:29.677Z] [iam] checking project data-analysis-tool-8416d for permissions ["firebase.projects.get"]
+[debug] [2025-03-24T13:23:29.678Z] Checked if tokens are valid: false, expires at: 1742823018095
+[debug] [2025-03-24T13:23:29.678Z] Checked if tokens are valid: false, expires at: 1742823018095
+[debug] [2025-03-24T13:23:29.678Z] > refreshing access token with scopes: []
+[debug] [2025-03-24T13:23:29.679Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-03-24T13:23:29.679Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-24T13:23:29.834Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-03-24T13:23:29.834Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-03-24T13:23:29.839Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions [none]
+[debug] [2025-03-24T13:23:29.839Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions x-goog-quota-user=projects/data-analysis-tool-8416d
+[debug] [2025-03-24T13:23:29.840Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-03-24T13:23:30.838Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions 200
+[debug] [2025-03-24T13:23:30.838Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-03-24T13:23:30.838Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:30.839Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:30.839Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d [none]
+[debug] [2025-03-24T13:23:31.062Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d 200
+[debug] [2025-03-24T13:23:31.062Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/data-analysis-tool-8416d {"projectNumber":"523204354654","projectId":"data-analysis-tool-8416d","lifecycleState":"ACTIVE","name":"data-analysis-tool","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-03-24T09:21:30.114622Z"}
+[debug] [2025-03-24T13:23:31.063Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:31.063Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:31.063Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/sites 
+[debug] [2025-03-24T13:23:32.629Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/sites 200
+[debug] [2025-03-24T13:23:32.629Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/sites {"sites":[{"name":"projects/data-analysis-tool-8416d/sites/data-analysis-tool-8416d","defaultUrl":"https://data-analysis-tool-8416d.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2025-03-24T13:23:32.629Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:32.629Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:32.629Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/webApps/-/config [none]
+[debug] [2025-03-24T13:23:33.284Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/webApps/-/config 200
+[debug] [2025-03-24T13:23:33.284Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d/webApps/-/config {"projectId":"data-analysis-tool-8416d","appId":"1:523204354654:web:622272dd43433c12268acf","storageBucket":"data-analysis-tool-8416d.firebasestorage.app","apiKey":"AIzaSyB7n6lwj2Lo4glePsuANrX5WM0p8nxq5ZQ","authDomain":"data-analysis-tool-8416d.firebaseapp.com","messagingSenderId":"523204354654","measurementId":"G-QB33GZGMHW"}
+[debug] [2025-03-24T13:23:33.293Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:33.293Z] Checked if tokens are valid: true, expires at: 1742826208835
+[debug] [2025-03-24T13:23:33.294Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d [none]
+[debug] [2025-03-24T13:23:33.620Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d 200
+[debug] [2025-03-24T13:23:33.621Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/data-analysis-tool-8416d {"projectId":"data-analysis-tool-8416d","projectNumber":"523204354654","displayName":"data-analysis-tool","name":"projects/data-analysis-tool-8416d","resources":{"hostingSite":"data-analysis-tool-8416d"},"state":"ACTIVE","etag":"1_f65d37f5-5b66-41d8-85ed-3ee220f3214b"}
+[info] i  hosting[data-analysis-tool-8416d]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[data-analysis-tool-8416d]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:36 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:36 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/bootstrap/css/bootstrap.min.css HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/fontawesome/css/all.min.css HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/fontawesome/css/all.min.css HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/firebase/firebase-app-compat.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/firebase/firebase-app-compat.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /styles.css HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /styles.css HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/firebase/firebase-functions-compat.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/firebase/firebase-functions-compat.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/firebase/firebase-storage-compat.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/firebase/firebase-storage-compat.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/vue/vue.global.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/vue/vue.global.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/plotly/plotly.min.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/plotly/plotly.min.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /assets/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /assets/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /app.js HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /app.js HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [24/Mar/2025:13:23:37 +0000] "GET /favicon.ico HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [24/Mar/2025:13:23:37 +0000] \"GET /favicon.ico HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\""}}

@@ -9,10 +9,27 @@ const os = require('os');
 const https = require('https');
 
 admin.initializeApp();
+
+// Create Express app for HTTP functions with proper CORS handling
 const app = express();
 
-// Middleware
-app.use(cors({ origin: true }));
+// Configure CORS with specific options
+const corsOptions = {
+  origin: '*', // Allow all origins for testing
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+// Apply CORS middleware with options
+app.use(cors(corsOptions));
+
+// Add explicit OPTIONS handler for preflight requests
+app.options('*', cors(corsOptions));
+
+// Add JSON parsing middleware
 app.use(express.json());
 
 // Temporary directories
@@ -48,74 +65,6 @@ const downloadFile = (url, destination) => {
   });
 };
 
-// Handle API routing
-app.post('/', async (req, res) => {
-  try {
-    const { endpoint, fileUrl, fileName, text } = req.body.data || {};
-    
-    if (endpoint === '/scaling' && fileUrl && fileName) {
-      // Handle scaling request
-      const { uploadDir, outputDir } = createTempDirs();
-      const filePath = path.join(uploadDir, fileName);
-      
-      // Download the file from the provided URL
-      await downloadFile(fileUrl, filePath);
-      
-      // Process the file
-      const results = await processScalingFile(filePath, outputDir);
-      
-      // Upload results to Firebase Storage
-      const bucket = admin.storage().bucket();
-      const fileUrls = {};
-      
-      for (const file of fs.readdirSync(outputDir)) {
-        const filePath = path.join(outputDir, file);
-        await bucket.upload(filePath, {
-          destination: `output/${file}`,
-          metadata: {
-            contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-          }
-        });
-        
-        // Get download URL
-        const [url] = await bucket.file(`output/${file}`).getSignedUrl({
-          action: 'read',
-          expires: '03-01-2500' // Far future expiration
-        });
-        
-        fileUrls[file] = url;
-      }
-      
-      return res.json({
-        success: true,
-        summary: 'Data processed successfully',
-        dataframes: fileUrls
-      });
-    } 
-    else if (endpoint === '/word-frequency' && text) {
-      // Handle word frequency request
-      const results = await processWordFrequency(text);
-      
-      return res.json({
-        success: true,
-        results
-      });
-    } 
-    else {
-      return res.status(400).json({ 
-        success: false, 
-        error: 'Invalid request parameters' 
-      });
-    }
-  } catch (error) {
-    console.error('Error processing request:', error);
-    return res.status(500).json({ 
-      success: false, 
-      error: error.message 
-    });
-  }
-});
-
 // Simulated scaling processing function
 async function processScalingFile(filePath, outputDir) {
   // This is a placeholder for the actual Python logic
@@ -143,7 +92,29 @@ async function processScalingFile(filePath, outputDir) {
   const outputPath = path.join(outputDir, 'processed_data.xlsx');
   XLSX.writeFile(outputWorkbook, outputPath);
   
-  return { outputPath };
+  // Upload results to Firebase Storage
+  const bucket = admin.storage().bucket();
+  const fileUrls = {};
+  
+  for (const file of fs.readdirSync(outputDir)) {
+    const filePath = path.join(outputDir, file);
+    await bucket.upload(filePath, {
+      destination: `output/${file}`,
+      metadata: {
+        contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      }
+    });
+    
+    // Get download URL
+    const [url] = await bucket.file(`output/${file}`).getSignedUrl({
+      action: 'read',
+      expires: '03-01-2500' // Far future expiration
+    });
+    
+    fileUrls[file] = url;
+  }
+  
+  return { rowCount: processedData.length, dataframes: fileUrls };
 }
 
 // Simulated word frequency processing function
@@ -168,5 +139,139 @@ async function processWordFrequency(text) {
   return sortedWords;
 }
 
-// Export the Express app as a Cloud Function
-exports.api = functions.https.onRequest(app);
+// Keep the original callable function
+exports.api = functions.https.onCall(async (data, context) => {
+  try {
+    // Handle different endpoints
+    const { endpoint, fileUrl, fileName, text } = data;
+    
+    if (endpoint === '/scaling' && fileUrl && fileName) {
+      // Process scaling request
+      const { uploadDir, outputDir } = createTempDirs();
+      const filePath = path.join(uploadDir, fileName);
+      
+      // Download the file from the URL
+      await downloadFile(fileUrl, filePath);
+      
+      // Process the file
+      const results = await processScalingFile(filePath, outputDir);
+      
+      return {
+        success: true,
+        summary: `File processed successfully. ${results.rowCount} rows processed.`,
+        dataframes: results.dataframes
+      };
+    } 
+    else if (endpoint === '/word-frequency' && text) {
+      // Process word frequency request
+      const results = processWordFrequency(text);
+      
+      return {
+        success: true,
+        results: results
+      };
+    } 
+    else {
+      return {
+        success: false,
+        error: 'Invalid request parameters'
+      };
+    }
+  } catch (error) {
+    console.error('Error processing request:', error);
+    return {
+      success: false,
+      error: error.message || 'An error occurred while processing your request'
+    };
+  }
+});
+
+// Create HTTP endpoints for scaling with explicit CORS handling
+app.post('/scaling', async (req, res) => {
+  // Set CORS headers manually for additional safety
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+  
+  try {
+    const { fileUrl, fileName } = req.body;
+    
+    if (!fileUrl || !fileName) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters'
+      });
+    }
+    
+    // Process scaling request
+    const { uploadDir, outputDir } = createTempDirs();
+    const filePath = path.join(uploadDir, fileName);
+    
+    // Download the file from the URL
+    await downloadFile(fileUrl, filePath);
+    
+    // Process the file
+    const results = await processScalingFile(filePath, outputDir);
+    
+    return res.json({
+      success: true,
+      summary: `File processed successfully. ${results.rowCount} rows processed.`,
+      dataframes: results.dataframes
+    });
+  } catch (error) {
+    console.error('Error processing scaling request:', error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'An error occurred while processing your request'
+    });
+  }
+});
+
+// Create HTTP endpoints for word frequency with explicit CORS handling
+app.post('/word-frequency', async (req, res) => {
+  // Set CORS headers manually for additional safety
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+  
+  try {
+    const { text } = req.body;
+    
+    if (!text) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required parameters'
+      });
+    }
+    
+    // Process word frequency request
+    const results = processWordFrequency(text);
+    
+    return res.json({
+      success: true,
+      results: results
+    });
+  } catch (error) {
+    console.error('Error processing word frequency request:', error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'An error occurred while processing your request'
+    });
+  }
+});
+
+// Export a new HTTP function with a different name and explicit CORS handling
+exports.httpApi = functions.https.onRequest((req, res) => {
+  // Set CORS headers for preflight requests
+  if (req.method === 'OPTIONS') {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+    res.set('Access-Control-Max-Age', '3600');
+    res.status(204).send('');
+    return;
+  }
+  
+  // Pass the request to the Express app
+  return app(req, res);
+});
